@@ -26,7 +26,9 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 var count = 0;
+var md;
 $(document).ready(function() {
+    md = window.markdownit({linkify: true, typographer: true});
     var query = location.search.substr(1).split('=');
     switch (query[0]){
         case 'post':
@@ -36,7 +38,7 @@ $(document).ready(function() {
                     var date = new Date(d.time*1000);
                     d.title = $('<html>'+d.title+'</html>').text();
                     $("#postTitle").text(d.title);
-                    $("#postContent").html(markdown.toHTML(d.body));
+                    $("#postContent").html(md.render(d.body));
                     $("#postDate").text('Posted on '+monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear());
                     if (d.isDead){
                         $(".post-heading").css('text-decoration', 'line-through');
@@ -111,7 +113,7 @@ function fetchPosts(i){
             var date = new Date(d.time*1000);
             d.title = $('<html>'+d.title+'</html>').text();
             d.body = $('<html>'+d.body+'</html>').text();
-            d.body = $(markdown.toHTML(d.body)).text();
+            d.body = $(md.render(d.body)).text();
             var deadStyle = d.isDead ? 'text-decoration:line-through': '';
             $("#posts").append('<div class="post-preview" style="'+deadStyle+'">\
               <a href="?post='+i+'">\

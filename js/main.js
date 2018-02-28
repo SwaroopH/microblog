@@ -88,9 +88,15 @@ $(document).ready(function() {
         }
     })
     $("#contractLink").attr('href', 'https://kovan.etherscan.io/address/'+contract);
-    $("#twitter").attr('href', 'https://twitter.com/'+twitter);
-    $("#facebook").attr('href', 'https://www.facebook.com/'+facebook);
-    $("#github").attr('href', 'https://github.com/'+github);
+    if (twitter){
+        $("#twitter").attr('href', 'https://twitter.com/'+twitter).parent().show();
+    }
+    if (facebook){
+        $("#facebook").attr('href', 'https://facebook.com/'+facebook).parent().show();
+    }
+    if (github){
+        $("#github").attr('href', 'https://github.com/'+github).parent().show();
+    }
 });
 
 function fetchPosts(i){

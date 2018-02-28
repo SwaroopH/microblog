@@ -1,0 +1,28 @@
+{
+  "name": "Blockchain Microblog",
+  "description": "A microblog on the blockchain powered by EthVigil.com",
+  "repository": "https://github.com/SwaroopH/microblog",
+  "keywords": ["node", "blog", "blockchain"],
+  "env": {
+    "CONTRACT_ADDRESS": {
+      "description": "Contract address deployed from EthVigil",
+      "required": true
+    },
+    "TWITTER": {
+      "description": "Your Twitter handle",
+      "required": false
+    },
+    "FACEBOOK": {
+      "description": "Your Facebook handle",
+      "required": false
+    },
+    "GITHUB": {
+      "description": "Your GitHub handle",
+      "required": false
+    },
+    "API_PREFIX": {
+      "description": "API Prefix for EthVigil",
+      "required": false
+    }
+  }
+}

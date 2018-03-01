@@ -15,4 +15,4 @@ Copyright 2013-2018 Blackrock Digital LLC for the original files
 
 Copyright 2018 Swaroop Hegde for the new/modified files.
 
-Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/gh-pages/LICENSE) license.
+Code released under the [MIT](https://github.com/SwaroopH/microblog/blob/master/LICENSE) license.

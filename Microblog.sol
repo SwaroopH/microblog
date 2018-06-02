@@ -3,12 +3,13 @@
  * Copyright 2018 Swaroop Hegde.
  * Code released under the MIT license.
 */
-pragma solidity ^0.4.19;
+
+pragma solidity ^0.4.24;
 
 contract Ownable {
     address public owner;
 
-    function Ownable() public {
+    constructor() public {
         owner = msg.sender;
     }
 
@@ -28,7 +29,7 @@ contract Microblog is Ownable {
         bool isDead;
     }
 
-    function Microblog(string _blogTitle, string _ownerName) Ownable() public {
+    constructor(string _blogTitle, string _ownerName) Ownable() public {
         blogTitle = _blogTitle;
         ownerName = _ownerName;
     }
@@ -40,7 +41,7 @@ contract Microblog is Ownable {
 
     uint public lastPostId; //allows sequential iteration without having to store an expensive array
 
-    event NewPost(uint id); //helpful for webhooks
+    event NewPost(uint id, string title); //helpful for webhooks
 
     function getPost(uint id) view public returns (string title, string body, string url, string photo, uint time, bool isDead){
         require(checkPost(id));
@@ -65,7 +66,7 @@ contract Microblog is Ownable {
         require(posts[lastPostId].isDead == true || compare(title, posts[lastPostId].title) != 0);
         lastPostId = lastPostId+1;
         posts[lastPostId] = Post(title, body, url, photo, now, false);
-        NewPost(lastPostId);
+        emit NewPost(lastPostId, title);
         return lastPostId;
     }
 

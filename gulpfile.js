@@ -22,6 +22,7 @@ gulp.task('config', function(done){
     +';\nvar twitter = "'+(process.env.TWITTER ? process.env.TWITTER : '')
     +'";\nvar facebook = "'+(process.env.FACEBOOK ? process.env.FACEBOOK : '')
     +'";\nvar github = "'+(process.env.GITHUB ? process.env.GITHUB : '')
+    +'";\nvar blockexplorer = "'+(process.env.EXPLORER_PREFIX ? process.env.EXPLORER_PREFIX : 'https://kovan.etherscan.io')
     +'";\nvar prefix = "'+(process.env.API_PREFIX ? process.env.API_PREFIX : 'https://alpha-api.ethvigil.com/contract/')+'" + contract;');
     done();
 });

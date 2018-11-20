@@ -87,7 +87,7 @@ $(document).ready(function() {
             $('meta[name=author]').attr('content', d);
         }
     })
-    $("#contractLink").attr('href', 'https://kovan.etherscan.io/address/'+contract);
+    $("#contractLink").attr('href', blockexplorer+'/address/'+contract);
     if (twitter){
         $("#twitter").attr('href', 'https://twitter.com/'+twitter).parent().show();
     }

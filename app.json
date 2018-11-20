@@ -20,6 +20,10 @@
       "description": "Your GitHub handle",
       "required": false
     },
+    "EXPLORER_PREFIX": {
+      "description": "Block Explorer Prefix",
+      "required": false
+    },
     "API_PREFIX": {
       "description": "API Prefix for EthVigil",
       "required": false

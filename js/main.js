@@ -88,6 +88,7 @@ $(document).ready(function() {
         }
     })
     $("#contractLink").attr('href', blockexplorer+'/address/'+contract);
+    $("#blockexplorer").attr('href', blockexplorer);
     if (twitter){
         $("#twitter").attr('href', 'https://twitter.com/'+twitter).parent().show();
     }

@@ -83,10 +83,11 @@ $(document).ready(function() {
         if (d.success){
             d = d.data[0].string;
             $('.subheading').text('A microblog by '+d);
-            $('.copyright span').text(d);
+            $('.copyright .owner').text(d);
             $('meta[name=author]').attr('content', d);
         }
     })
+    $('.copyright .year').text(new Date().getFullYear());
     $("#contractLink").attr('href', blockexplorer+'/address/'+contract);
     $("#blockexplorer").attr('href', blockexplorer);
     if (twitter){

@@ -1,10 +1,10 @@
 /*
  * Microblog Smart Contract.
- * Copyright 2018 Swaroop Hegde.
+ * Copyright 2019 Swaroop Hegde.
  * Code released under the MIT license.
 */
 
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.9;
 
 contract Ownable {
     address public owner;
@@ -29,7 +29,7 @@ contract Microblog is Ownable {
         bool isDead;
     }
 
-    constructor(string _blogTitle, string _ownerName) Ownable() public {
+    constructor(string memory _blogTitle, string memory _ownerName) Ownable() public {
         blogTitle = _blogTitle;
         ownerName = _ownerName;
     }
@@ -43,7 +43,7 @@ contract Microblog is Ownable {
 
     event NewPost(uint id, string title); //helpful for webhooks
 
-    function getPost(uint id) view public returns (string title, string body, string url, string photo, uint time, bool isDead){
+    function getPost(uint id) view public returns (string memory title, string memory body, string memory url, string memory photo, uint time, bool isDead){
         require(checkPost(id));
         title = posts[id].title;
         body = posts[id].body;
@@ -56,7 +56,7 @@ contract Microblog is Ownable {
     /*
      * Only Owners can add posts - EthVigil is the default owner and requires the API key to make write calls
     */
-    function addPost(string title, string body, string url, string photo) onlyOwner public returns (uint){
+    function addPost(string memory title, string memory body, string memory url, string memory photo) onlyOwner public returns (uint){
         require(bytes(title).length > 0 && bytes(title).length <141); //Check if title is empty or larger than a tweet
         require(bytes(body).length <1001); //Check if body is too large
         /*
@@ -87,12 +87,12 @@ contract Microblog is Ownable {
         return owner;
     }
 
-    function changeOwnerName(string _ownerName) onlyOwner public returns (string) {
+    function changeOwnerName(string memory _ownerName) onlyOwner public returns (string memory) {
         ownerName = _ownerName;
         return ownerName;
     }
 
-    function changeBlogTitle(string _blogTitle) onlyOwner public returns (string) {
+    function changeBlogTitle(string memory _blogTitle) onlyOwner public returns (string memory) {
         blogTitle = _blogTitle;
         return blogTitle;
     }
@@ -108,7 +108,7 @@ contract Microblog is Ownable {
     /*
      * Because there's no such thing as strings.. Internal function to compare strings borrowed from StringUtil
     */
-    function compare(string _a, string _b) pure internal returns (int) {
+    function compare(string memory _a, string memory _b) pure internal returns (int) {
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
         uint minLength = a.length;

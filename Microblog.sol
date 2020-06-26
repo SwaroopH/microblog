@@ -1,10 +1,10 @@
 /*
  * Microblog Smart Contract.
- * Copyright 2019 Swaroop Hegde.
+ * Copyright 2019-2020 Swaroop Hegde.
  * Code released under the MIT license.
 */
 
-pragma solidity ^0.5.9;
+pragma solidity ^0.5.17;
 
 import "./Ownable.sol";
 
@@ -33,7 +33,7 @@ contract Microblog is Ownable {
     event NewPost(uint id, string title); //helpful for webhooks
 
     function getPost(uint id) view public returns (string memory title, string memory body, string memory url, string memory photo, uint time, bool isDead){
-        require(checkPost(id));
+        require(checkPost(id), "Post not found!");
         title = posts[id].title;
         body = posts[id].body;
         url = posts[id].url;
@@ -46,13 +46,14 @@ contract Microblog is Ownable {
      * Only Owners can add posts - EthVigil is the default owner and requires the API key to make write calls
     */
     function addPost(string memory title, string memory body, string memory url, string memory photo) onlyOwner public returns (uint){
-        require(bytes(title).length > 0 && bytes(title).length <141); //Check if title is empty or larger than a tweet
-        require(bytes(body).length <1001); //Check if body is too large
+        require(bytes(title).length > 0, "Title cannot be empty!");
+        require(bytes(title).length < 141, "Title is too long, limit to 140 chars!");
+        require(bytes(body).length <1001, "Body is too long, limit to 1000 chars!");
         /*
          *We want to check if the post was accidentally sent twice.
          *However, you may want to delete (setDead) a post and post again with the right content
         */
-        require(posts[lastPostId].isDead == true || compare(title, posts[lastPostId].title) != 0);
+        require(posts[lastPostId].isDead == true || compare(title, posts[lastPostId].title) != 0, "Title from previous post is identical - preventing duplicate post!");
         lastPostId = lastPostId+1;
         posts[lastPostId] = Post(title, body, url, photo, now, false);
         emit NewPost(lastPostId, title);
@@ -63,7 +64,7 @@ contract Microblog is Ownable {
      * We want to allow archiving a post if it was posted by mistake - it'll only set a flag, the post will continue to exist.
     */
     function setDead(uint id) onlyOwner public {
-        require(checkPost(id));
+        require(checkPost(id), "Post not found!");
         posts[id].isDead = true;
     }
 

@@ -6,18 +6,7 @@
 
 pragma solidity ^0.5.9;
 
-contract Ownable {
-    address public owner;
-
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner() {
-        require(msg.sender == owner);
-        _;
-    }
-}
+import "./Ownable.sol";
 
 contract Microblog is Ownable {
     struct Post {
@@ -76,15 +65,6 @@ contract Microblog is Ownable {
     function setDead(uint id) onlyOwner public {
         require(checkPost(id));
         posts[id].isDead = true;
-    }
-
-    /*
-     * Take control of the contract. Beware, once you change the owner, there's no going back.
-     * EthVigil can no longer make write calls - get calls will still work.
-    */
-    function changeOwner(address newOwner) onlyOwner public returns (address){
-        owner = newOwner;
-        return owner;
     }
 
     function changeOwnerName(string memory _ownerName) onlyOwner public returns (string memory) {
